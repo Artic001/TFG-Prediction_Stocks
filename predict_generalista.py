@@ -342,14 +342,14 @@ def prepare_ticker(ticker, scaler):
 def get_signal(metrics):
     auc  = metrics["roc_auc"]
     prec = metrics["precision"]
-    rec  = metrics["recall"]
     spec = metrics["specificity"]
+    pred_today = metrics.get("pred_today", None)
 
     if auc < 0.55:
         return "INSUFFICIENT"
-    elif rec > spec and prec > 0.55 and spec > 0.50:
+    elif pred_today == "UP" and prec > 0.55 and spec > 0.50:
         return "BUY"
-    elif spec > rec and spec > 0.55:
+    elif pred_today == "DOWN" and spec > 0.55:
         return "DO NOT BUY"
     else:
         return "INSUFFICIENT"

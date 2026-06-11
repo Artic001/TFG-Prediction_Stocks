@@ -682,7 +682,7 @@ def train_xgb(data):
             "colsample_bytree": trial.suggest_float("colsample_bytree", 0.5, 1.0),
             "min_child_weight": trial.suggest_int("min_child_weight", 1, 15),
             "reg_alpha":        trial.suggest_float("reg_alpha", 1e-3, 2.0, log=True),
-            "reg_lconda":       trial.suggest_float("reg_lconda", 1e-3, 2.0, log=True),
+            "reg_lambda":       trial.suggest_float("reg_lambda", 1e-3, 2.0, log=True),
             "gamma":            trial.suggest_float("gamma", 0.0, 2.0),
             "scale_pos_weight": spw,
             "random_state": SEED, "eval_metric": "auc", "verbosity": 0,

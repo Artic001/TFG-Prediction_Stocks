@@ -123,14 +123,16 @@ streamlit run app.py
 
 ## Arquitectura LSTM
 
-| Parámetro | Exp.1 / Exp.2 | Exp.3 / Exp.4 |
-|-----------|--------------|--------------|
-| Units | 48 | 64 |
-| Dropout | 0.4 | 0.5 |
-| L2 | 0.002 | 0.003 |
-| Window size | 20 días | 20 días |
-| Epochs máx. | 150 | 150 |
+| Parámetro | Exp.1 / Exp.2         | Exp.3 / Exp.4 |
+|-----------|-----------------------|--------------|
+| Units | 48                    | 64 |
+| Dropout | 0.4 / 0.5             | 0.5 |
+| L2 | 0.002                 | 0.003 |
+| Window size | 20 días               | 20 días |
+| Epochs máx. | 150                   | 150 |
 | Early stopping | val_auc (patience=20) | val_auc (patience=20) |
+
+*Exp.1 usa dropout=0.4, Exp.2 usa dropout=0.5
 
 **Stacked LSTM:** 2 capas (64 + 32 unidades), `return_sequences=True` en la primera capa.
 
