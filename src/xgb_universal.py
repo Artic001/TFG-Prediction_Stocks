@@ -361,7 +361,7 @@ def build_target(df, horizon):
     C = df["Close"]
     if horizon == 1:
         return (C.pct_change(1).shift(-1) > 0).astype(int).rename("target")
-    future = C.shift(-horizon).rolling(horizon).mean().shift(-(horizon - 1))
+    future = C.shift(-horizon).rolling(horizon).mean()
     return (future > C.rolling(horizon).mean()).astype(int).rename("target")
 
 

@@ -474,7 +474,7 @@ def build_features_technical(df):
 
 def build_target(df):
     C = df["Close"]
-    future_mean = C.shift(-HORIZON).rolling(HORIZON).mean().shift(-(HORIZON - 1))
+    future_mean = C.shift(-HORIZON).rolling(HORIZON).mean()
     past_mean   = C.rolling(HORIZON).mean()
     return (future_mean > past_mean).astype(int).rename("target")
 

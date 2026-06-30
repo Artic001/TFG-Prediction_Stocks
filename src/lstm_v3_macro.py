@@ -341,7 +341,7 @@ def build_target(df, horizon: int):
         future_ret = C.pct_change(1).shift(-1)
         target = (future_ret > 0).astype(int)
     else:
-        future_mean = C.shift(-horizon).rolling(horizon).mean().shift(-(horizon - 1))
+        future_mean = C.shift(-horizon).rolling(horizon).mean()
         past_mean   = C.rolling(horizon).mean()
         target = (future_mean > past_mean).astype(int)
     return target.rename("target")
