@@ -42,7 +42,9 @@ END_DATE    = "2026-03-01"
 HORIZON     = 30
 WINDOW_SIZE = 20
 
-FRED_API_KEY    = "d1579a90b1b46f86b9b802630f4c5fda"
+from dotenv import load_dotenv
+load_dotenv()
+FRED_API_KEY    = os.getenv("FRED_API_KEY", "")
 MARKET_INDEX    = "^GSPC"
 SECONDARY_INDEX = "^STOXX50E"
 

@@ -82,7 +82,9 @@ OUT_THRESHOLD = "models/threshold_generalista.json"
 os.makedirs("models", exist_ok=True)
 
 # US macro data (identical for all stocks)
-FRED_API_KEY = "d1579a90b1b46f86b9b802630f4c5fda"
+from dotenv import load_dotenv
+load_dotenv()
+FRED_API_KEY = os.getenv("FRED_API_KEY", "")
 FRED_US = [
     ("DFF",          "fed_rate",     "Fed Funds Rate"),
     ("T10Y2Y",       "yield_curve",  "Yield Curve 10y-2y"),

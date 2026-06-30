@@ -233,7 +233,10 @@ SUFFIX_TO_MARKET = {
     "AX": ("^AXJO", "^GSPC", "ASX 200"),
     "SW": ("^SSMI", "^GSPC", "SMI"),
 }
-FRED_API_KEY = "d1579a90b1b46f86b9b802630f4c5fda"
+
+from dotenv import load_dotenv
+load_dotenv()
+FRED_API_KEY = os.getenv("FRED_API_KEY", "")
 START_DATE = "2010-07-01"
 END_DATE = datetime.date.today().strftime("%Y-%m-%d")
 WINDOW_SIZE = 20

@@ -27,14 +27,16 @@ Usage:
 import warnings
 warnings.filterwarnings("ignore")
 
+import os
 import re
 from math import exp
 from datetime import datetime, timezone, timedelta
 
 
 # CONFIGURATION
-
-ALPHA_VANTAGE_KEY = "TUNTTOFCPHT0VTXR"
+from dotenv import load_dotenv
+load_dotenv()
+ALPHA_VANTAGE_KEY = os.getenv("ALPHA_VANTAGE_KEY", "")
 MAX_NEWS_AV    = 200   # max news from Alpha Vantage
 MAX_NEWS_GDELT = 100   # max news from GDELT
 MAX_NEWS_YF    = 20    # max news from yfinance (fallback)
