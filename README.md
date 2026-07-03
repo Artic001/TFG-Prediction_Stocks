@@ -123,16 +123,16 @@ streamlit run app.py
 
 ## Arquitectura LSTM
 
-| Parámetro | Exp.1 / Exp.2         | Exp.3 / Exp.4 |
-|-----------|-----------------------|--------------|
-| Units | 48                    | 64 |
-| Dropout | 0.4 / 0.5             | 0.5 |
-| L2 | 0.002                 | 0.003 |
-| Window size | 20 días               | 20 días |
-| Epochs máx. | 150                   | 150 |
-| Early stopping | val_auc (patience=20) | val_auc (patience=20) |
+| Parámetro | Exp.1 / Exp.2 | Exp.3 / Exp.4 |
+|-----------|---------------|---------------|
+| Units | 48 | 64 |
+| Dropout | 0.4 / 0.5 | 0.5 |
+| L2 | 0.002 | 0.003 |
+| Window size | 20 días | 20 días |
+| Epochs máx. | 150 | 150 |
+| Early stopping | val_auc (patience=15) | val_auc (patience=15) |
 
-*Exp.1 usa dropout=0.4, Exp.2 usa dropout=0.5
+*Exp.1 usa dropout=0.4, Exp.2 usa dropout=0.5*
 
 **Stacked LSTM:** 2 capas (64 + 32 unidades), `return_sequences=True` en la primera capa.
 
@@ -141,11 +141,11 @@ streamlit run app.py
 ## Variable objetivo
 
 ```
-target = 1 si mean(Close[t+1 : t+31]) > mean(Close[t-29 : t+1])
+target = 1 si mean(Close[t+1 : t+31]) > mean(Close[t-29 : t])
 target = 0 en caso contrario
 ```
 
-Horizonte de 30 días. El scaler se ajusta únicamente sobre el conjunto de train.
+Horizonte de 30 días definido mediante comparación de medias móviles para reducir el ruido diario. El scaler se ajusta únicamente sobre el conjunto de train.
 
 ---
 
@@ -178,8 +178,8 @@ El sentimiento **no** es un input del modelo, actúa como información complemen
 
 - **Survivorship bias:** Las acciones del modelo generalista han sobrevivido hasta 2026.
 - **Bull market 2023–2026:** Las métricas pueden estar infladas si el porcentaje de subidas en el test supera el 60%.
-- **XGBoost con features macro:** El XGBoost no tiene memoria temporal, por lo que su rendimiento degrada al añadir variables macroeconómicas (Exp.3, Exp.4). Este es un resultado esperado y válido.
-- **Stacked LSTM:** Mejora el AUC pero puede colapsar el threshold en acciones con fuerte sesgo alcista.
+- **XGBoost con features macro:** El XGBoost no tiene memoria temporal, por lo que su rendimiento puede verse afectado al añadir variables macroeconómicas, aunque el efecto depende del activo concreto.
+- **Stacked LSTM:** No mejora el AUC de forma consistente y tiende a sesgarse hacia la clase mayoritaria en periodos alcistas, reduciendo la capacidad de detectar bajadas.
 - **Fechas fijas:** START=2010-07-01, END=2026-03-01 para garantizar reproducibilidad.
 
 ---
@@ -191,7 +191,6 @@ El sentimiento **no** es un input del modelo, actúa como información complemen
 - XGBoost
 - Optuna
 - yfinance
-- fredapi
 - Streamlit
 - transformers (FinBERT)
 
